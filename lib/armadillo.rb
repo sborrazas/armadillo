@@ -13,6 +13,15 @@ module Armadillo
   # @api private
   class TemplateContext < SimpleDelegator
 
+    # Initialize the TemplateContext.
+    #
+    # @param source [Object]
+    # @param template_options [Hash] ({})
+    def initialize(source, template_options = {})
+      @template_options = template_options
+      super(source)
+    end
+
     # Extend the specified template in which the inner view blocks will be
     # rendered.
     #
@@ -55,6 +64,16 @@ module Armadillo
         :vlocks => {},
         :parent_frame => current_frame
       }
+    end
+
+    # Render another template with the same options as the current one.
+    #
+    # @param template_path [String]
+    # @param locals [Hash] ({})
+    #
+    # @return [String]
+    def render(template_path, locals = {})
+      Armadillo.render(template_path, locals, @template_options)
     end
 
     # Determine if the current template should extend from a new template.
@@ -121,8 +140,8 @@ module Armadillo
   # @return [String]
   # @api public
   def self.render(template_path, locals = {}, options = {})
-    scope = options.fetch(:scope) { Object.new }
-    context = TemplateContext.new(scope)
+    scope = options.delete(:scope) { Object.new }
+    context = TemplateContext.new(scope, options)
     _render(template_path, locals, context, options)
   end
 

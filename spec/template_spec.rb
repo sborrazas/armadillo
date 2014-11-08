@@ -76,6 +76,19 @@ describe Armadillo do
         assert_lines_match(content, ["Sanitized &amp;", "Not sanitized &"])
       end
     end
+
+    describe "when the template renders another template" do
+      it "renders it with the same options" do
+        content = Armadillo.render("with_sub_template.html", {}, {
+          :base_path => TEMPLATES_PATH,
+          :escape_html => true
+        })
+        assert_lines_match(content, [
+          "<h1>Title</h1>",
+          "<h2>Subtitle</h2>"
+        ])
+      end
+    end
   end
 
 end
