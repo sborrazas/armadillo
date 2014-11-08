@@ -3,7 +3,7 @@ require "delegate"
 
 module Armadillo
 
-  VERSION = "0.0.1"
+  VERSION = "0.0.2"
 
   DEFAULT_OPTIONS = {
     :default_encoding => Encoding.default_external,
