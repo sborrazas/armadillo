@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
 
   s.require_paths = ["lib"]
 
-  s.add_dependency "tilt"
+  s.add_dependency("erubis", "~> 2.7")
+  s.add_dependency("tilt", "~> 2.0")
 
 end
