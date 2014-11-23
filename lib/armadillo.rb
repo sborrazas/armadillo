@@ -1,4 +1,4 @@
-require "tilt"
+require "tilt/erubis"
 require "delegate"
 
 module Armadillo
@@ -163,7 +163,7 @@ module Armadillo
       template_path = File.join(base_path, template_path)
     end
     template = _templates_cache.fetch(template_path) do
-      Tilt.new(template_path, 1, DEFAULT_OPTIONS.merge(options))
+      Tilt::ErubisTemplate.new(template_path, 1, DEFAULT_OPTIONS.merge(options))
     end
 
     content = template.render(context, locals)
