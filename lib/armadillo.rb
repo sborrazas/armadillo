@@ -1,3 +1,4 @@
+require "tilt"
 require "tilt/erubis"
 require "delegate"
 
