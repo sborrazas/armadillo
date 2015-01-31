@@ -141,7 +141,7 @@ module Armadillo
   # @return [String]
   # @api public
   def self.render(template_path, locals = {}, options = {})
-    scope = options.delete(:scope) { Object.new }
+    scope = options.fetch(:scope) { Object.new }
     context = TemplateContext.new(scope, options)
     _render(template_path, locals, context, options)
   end

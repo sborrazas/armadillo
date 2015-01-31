@@ -88,6 +88,21 @@ describe Armadillo do
           "<h2>Subtitle</h2>"
         ])
       end
+
+      it "uses the same scope object" do
+        obj = Object.new
+        def obj.some_text
+          "text!"
+        end
+        content = Armadillo.render("with_sub_template2.html", {}, {
+          :base_path => TEMPLATES_PATH,
+          :escape_html => true,
+          :scope => obj
+        })
+        assert_lines_match(content, [
+          "<h2>text!</h2>"
+        ])
+      end
     end
   end
 
