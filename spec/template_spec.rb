@@ -104,6 +104,41 @@ describe Armadillo do
         ])
       end
     end
+
+    describe "when providing default blocks" do
+      describe "when default is not overridden" do
+        it "renders the default" do
+          content = Armadillo.render("default_block.text", {}, {
+            :base_path => TEMPLATES_PATH
+          })
+
+          assert_lines_match(content, ["Default"])
+        end
+      end
+
+      describe "when default is overridden" do
+        it "renders the content from the overridden" do
+          content = Armadillo.render("default_block_overridden.text", {}, {
+            :base_path => TEMPLATES_PATH
+          })
+
+          assert_lines_match(content, ["Default Overridden"])
+        end
+      end
+
+      describe "when default is a nested block" do
+        describe "when default is not overridden" do
+          it "renders the default" do
+            content = Armadillo.render("default_block_nested.text", {}, {
+              :base_path => TEMPLATES_PATH
+            })
+
+            assert_lines_match(content, ["Default", "Base"])
+          end
+        end
+      end
+    end
+
   end
 
 end

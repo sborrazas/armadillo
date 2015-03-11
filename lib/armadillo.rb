@@ -44,17 +44,18 @@ module Armadillo
     # @param block_name [Symbol]
     # @param block [Block]
     def vlock(block_name, &block)
-      raise "Invalid vlock usage" unless current_frame
-
-      if extends?
-        raise "No block given" unless block_given?
+      if current_frame && extends?
+        # Save child view block to be rendered on the parent
+        raise "No block given on `#{block_name}`" unless block
 
         current_frame[:vlocks][block_name] = block
-      elsif (frame = get_frame(block_name, current_frame))
+      elsif current_frame && (frame = get_frame(block_name, current_frame))
+        # Look for child view block and render it
         temporary_frame(frame[:parent_frame]) do
           frame[:vlocks][block_name].call
         end
-      elsif block_given?
+      elsif block
+        # Render a default block
         block.call
       end
     end
