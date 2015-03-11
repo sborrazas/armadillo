@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "armadillo"
-  s.version = "0.0.5"
+  s.version = "0.0.6"
   s.summary = "Template inheritance with ERB templates"
   s.description = "A small library for Django-like template inheritance adapted for ERB"
   s.authors = ["Sebastian Borrazas"]
